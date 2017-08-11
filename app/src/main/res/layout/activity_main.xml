@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.simcoder.tinder.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignOut"
+        android:onClick="logoutUser"/>
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
         android:background="#ffeee9e2"
