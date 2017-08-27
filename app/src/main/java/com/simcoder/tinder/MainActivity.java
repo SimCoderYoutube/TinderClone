@@ -26,12 +26,20 @@ public class MainActivity extends AppCompatActivity {
     private int i;
 
     private FirebaseAuth mAuth;
+
+    private String currentUId;
+
+    private DatabaseReference usersDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getCurrentUser().getUid();
 
         checkUserSex();
 
@@ -59,11 +67,15 @@ public class MainActivity extends AppCompatActivity {
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                String userId = dataObject.toString();
+                usersDb.child(userId).child("connections").child("nope").child(currentUId).setValue(true);
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+                String userId = dataObject.toString();
+                usersDb.child(userId).child("connections").child("Yeps").child(currentUId).setValue(true);
             }
 
             @Override
@@ -98,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(user.getUid())){
                     userSex = "Male";
                     oppositeUserSex = "Female";
+                    usersDb = usersDb.child(oppositeUserSex);
                     getOppositeSexUsers();
                 }
             }
@@ -123,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.getKey().equals(user.getUid())){
                     userSex = "Female";
                     oppositeUserSex = "Male";
+                    usersDb = usersDb.child(oppositeUserSex);
                     getOppositeSexUsers();
                 }
             }
@@ -147,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
         oppositeSexDb.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists()){
-                    al.add(dataSnapshot.child("name").getValue().toString());
+                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("nope").hasChild(currentUId) && !dataSnapshot.child("connections").child("yeps").hasChild(currentUId)){
+                    //al.add(dataSnapshot.child("name").getValue().toString());
+                    al.add(dataSnapshot.getKey());
                     arrayAdapter.notifyDataSetChanged();
                 }
             }
@@ -166,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
 
 
