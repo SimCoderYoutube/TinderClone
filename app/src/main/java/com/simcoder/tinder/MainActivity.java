@@ -123,10 +123,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public String getUserSex(){
-        return userSex;
-    }
-    public String userSex;
+
+    private String userSex;
     private String oppositeUserSex;
     public void checkUserSex(){
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -220,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        intent.putExtra("userSex", userSex);
         startActivity(intent);
         return;
     }
