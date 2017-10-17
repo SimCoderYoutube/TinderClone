@@ -2,6 +2,8 @@ package com.simcoder.tinder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +39,16 @@ public class arrayAdapter extends ArrayAdapter<cards>{
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
         name.setText(card_item.getName());
-        Glide.with(getContext()).load(card_item.getProfileImageUrl()).into(image);
+        switch(card_item.getProfileImageUrl()){
+            case "default":
+                Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
+                break;
+            default:
+                Glide.clear(image);
+                Glide.with(convertView.getContext()).load(card_item.getProfileImageUrl()).into(image);
+                break;
+        }
+
 
         return convertView;
 
