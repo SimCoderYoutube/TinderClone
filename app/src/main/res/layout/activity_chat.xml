@@ -8,7 +8,8 @@
     tools:context="com.simcoder.tinder.Chat.ChatActivity">
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sendLayout">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.NestedScrollView>
     <LinearLayout
+        android:id="@+id/sendLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
