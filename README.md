@@ -22,12 +22,12 @@ PS: If ou're going to download the full project please use your on firebase API,
 
 # Implementation Guide
 
-**1 - Project**
+**1 - Project**<br />
 1 - Open the Project in your android studio;<br />
 2 - !!!!IMPORTANT!!!! Change the Package Name. You can check how to do that here (https://stackoverflow.com/questions/16804093/android-studio-rename-package)<br />
 
 
-**2 - Firebase Panel**
+**2 - Firebase Panel**<br />
 1 - Create Firebase Project (https://console.firebase.google.com/);<br />
 2 - import the file google-service.json into your project as the instructions say;<br />
 3 - Go to Firebase -> Registration and activate Login/Registrtion with email<br />
